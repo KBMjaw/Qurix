@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qurix – Tiles That Stay. Bonds That Last.</title>
+<meta name="description" content="Qurix premium tile adhesive – Q100, Q200 and Q300 grades for stronger, longer-lasting tile installations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#e31b1b;
+    --red-dark:#b30f0f;
+    --black:#0b0b0b;
+    --ink:#111;
+    --grey:#5d5d5d;
+    --light:#f4f4f5;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--ink);background:#fff;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Buttons ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 16px/1 'Poppins',sans-serif;padding:17px 34px;border-radius:999px;border:2px solid transparent;cursor:pointer;transition:.25s}
+  .btn-red{background:var(--red);color:#fff;box-shadow:0 8px 22px rgba(227,27,27,.35)}
+  .btn-red:hover{background:var(--red-dark);transform:translateY(-2px)}
+  .btn-outline{background:rgba(0,0,0,.35);color:#fff;border-color:rgba(255,255,255,.6)}
+  .btn-outline:hover{background:#fff;color:#000}
+  .btn-white{background:#fff;color:var(--ink);box-shadow:0 8px 22px rgba(0,0,0,.25)}
+  .btn-white:hover{transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:#fff;border-color:var(--red);padding:13px 28px;font-size:15px}
+  .btn-ghost:hover{background:var(--red)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;background:var(--black);color:#fff;overflow:hidden;isolation:isolate}
+  .hero::before{ /* red diagonal wedge */
+    content:"";position:absolute;inset:0;z-index:-2;
+    background:linear-gradient(115deg,transparent 52%,#c40d0d 52.2%,#e31b1b 70%,#8f0808 100%);
+    opacity:.95}
+  .hero::after{ /* dark shading */
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(ellipse at 20% 0%,rgba(255,255,255,.06),transparent 55%),linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.55))}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0;position:relative;z-index:5}
+  .logo{display:inline-flex;flex-direction:column;align-items:center;line-height:1}
+  .logo .word{font-weight:800;font-size:52px;letter-spacing:-1px;color:#fff}
+  .logo .word b{color:#d8d8d8;font-weight:800;position:relative}
+  .logo .word b::after{content:"";position:absolute;right:-6px;top:6px;width:14px;height:30px;background:var(--red);transform:skewX(-30deg);z-index:-1;opacity:.0}
+  .logo .word sup{font-size:11px;font-weight:500;vertical-align:top;position:relative;top:4px;margin-left:2px}
+  .logo .tag{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:3px;margin-top:6px;color:#fff}
+  .logo .tag::before,.logo .tag::after{content:"";width:26px;height:2px;background:#fff;opacity:.9}
+  .logo.sm .word{font-size:42px}
+  .logo.sm .tag{font-size:9px}
+
+  .menu-btn{background:none;border:0;cursor:pointer;width:48px;height:40px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+  .menu-btn span{display:block;height:3px;background:#fff;border-radius:2px;transition:.3s}
+  .menu-btn.open span:nth-child(1){transform:translateY(11px) rotate(45deg)}
+  .menu-btn.open span:nth-child(2){opacity:0}
+  .menu-btn.open span:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
+  .menu{display:none;position:absolute;right:0;top:84px;background:rgba(10,10,10,.96);border:1px solid #2a2a2a;border-radius:14px;padding:10px;min-width:210px;z-index:20}
+  .menu.open{display:block}
+  .menu a{display:block;padding:12px 16px;border-radius:10px;font-weight:500}
+  .menu a:hover{background:var(--red)}
+
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:10px;padding:30px 0 60px}
+  .hero h1{font-size:clamp(34px,5.2vw,64px);line-height:1.12;font-weight:600;letter-spacing:-.5px}
+  .hero h1 span{display:block;color:var(--red);font-weight:700}
+  .hero p.lead{font-size:clamp(16px,1.7vw,21px);margin:22px 0 34px;max-width:430px;color:#f1f1f1}
+  .hero-btns{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+  .hero-btns .btn{min-width:280px}
+  .hero-btns .btn-outline{min-width:234px}
+
+  .stage{position:relative;display:flex;justify-content:center;align-items:flex-end;min-height:360px;padding-top:30px}
+  .pedestal{position:absolute;left:2%;right:-8%;bottom:-10px;height:34%;background:linear-gradient(160deg,#4a4a4a,#1e1e1e 60%,#101010);transform:perspective(600px) rotateX(18deg);transform-origin:bottom;border-top:2px solid #6a6a6a;box-shadow:0 30px 60px rgba(0,0,0,.6)}
+  .stage .bag{position:relative;z-index:2;filter:drop-shadow(0 22px 24px rgba(0,0,0,.55))}
+  .stage .bag.side{width:30%;margin-bottom:34px}
+  .stage .bag.mid{width:37%;margin:0 -3%;z-index:3;margin-bottom:6px}
+  .stage .bag.side:first-child{margin-right:-2%}
+  .dots{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:8px;z-index:6}
+  .dots i{width:30px;height:5px;border-radius:3px;background:#777}
+  .dots i:first-child{background:var(--red)}
+
+  /* ---------- Intro / features ---------- */
+  .intro{padding:60px 0 48px}
+  .intro-grid{display:grid;grid-template-columns:1.1fr 1.3fr;gap:40px;align-items:center}
+  .eyebrow{display:block;width:70px;height:4px;background:var(--red);margin-bottom:18px}
+  .intro h2{font-size:clamp(28px,3.4vw,40px);line-height:1.2;font-weight:700}
+  .intro p{color:var(--grey);margin-top:14px;max-width:420px}
+  .features{display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid #ddd}
+  .feature{text-align:center;padding:10px 14px;border-right:1px solid #ddd}
+  .feature:last-child{border-right:0}
+  .feature svg{width:44px;height:44px;margin:0 auto 12px;stroke:#222;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .feature span{font-size:15px;color:#222;line-height:1.35;display:block}
+
+  /* ---------- Products ---------- */
+  .products{padding:30px 0 60px;text-align:center}
+  .products .eyebrow{margin:0 auto 18px}
+  .products h2{font-size:clamp(30px,3.6vw,44px);font-weight:700}
+  .products .sub{font-size:18px;color:#222;margin-top:4px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:34px}
+  .card{background:var(--light);border:1px solid #e6e6e8;border-radius:var(--radius);padding:26px 18px 22px;transition:.3s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.12)}
+  .card .bag{width:58%;max-width:190px;margin:0 auto 12px;filter:drop-shadow(0 12px 12px rgba(0,0,0,.35))}
+  .card h3{font-size:22px;font-weight:700}
+  .pill{display:inline-block;font-size:14px;font-weight:600;color:#fff;padding:5px 18px;border-radius:999px;margin:10px 0 14px}
+  .pill.g1{background:#777}
+  .pill.g2{background:var(--red)}
+  .pill.g3{background:#111}
+  .card p{font-size:17px;line-height:1.4;color:#222;max-width:260px;margin:0 auto 14px}
+  .more{display:inline-flex;gap:6px;align-items:center;font-weight:600;border-bottom:2px solid var(--red);padding-bottom:1px}
+  .more em{color:var(--red);font-style:normal}
+
+  /* ---------- Why ---------- */
+  .why{background:linear-gradient(180deg,#131313,#0a0a0a);color:#fff;padding:44px 0;position:relative;overflow:hidden}
+  .why::after{content:"";position:absolute;inset:auto 0 0 0;height:60%;background:linear-gradient(0deg,rgba(255,255,255,.07),transparent);pointer-events:none}
+  .why-grid{display:grid;grid-template-columns:1.2fr 1.8fr;gap:30px;align-items:center;position:relative;z-index:1}
+  .why .eyebrow{margin-bottom:14px}
+  .why h2{font-size:clamp(34px,4vw,50px);font-weight:700;line-height:1.1}
+  .why p{font-size:20px;margin:8px 0 22px;color:#eee}
+  .why-feats{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid #444}
+  .why-feats .feature{border-right:1px solid #444}
+  .why-feats .feature:last-child{border-right:0}
+  .why-feats svg{stroke:#fff}
+  .why-feats span{color:#fff}
+
+  /* ---------- CTA ---------- */
+  .cta{padding:24px 0}
+  .cta-box{background:linear-gradient(100deg,#c10f0f 0%,#e31b1b 45%,#0b0b0b 100%);border-radius:22px;padding:34px 40px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;overflow:hidden}
+  .cta-box::after{content:"";position:absolute;right:-30px;bottom:-30px;width:300px;height:130px;background:repeating-linear-gradient(0deg,transparent 0 0),linear-gradient(135deg,#e31b1b,#7e0505);transform:skewX(-30deg) rotate(-8deg);opacity:.9;border-radius:6px;z-index:0}
+  .cta-box>*{position:relative;z-index:1}
+  .cta h2{font-size:clamp(26px,3.2vw,40px);line-height:1.2;font-weight:700}
+  .cta p{font-size:18px;margin-top:6px}
+
+  /* ---------- Footer ---------- */
+  footer{background:#0a0a0a;color:#fff;padding:34px 0}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .foot .sep{width:1px;height:56px;background:#444}
+  .foot a.site{font-size:19px}
+  .foot .phone{display:flex;align-items:center;gap:12px;font-size:19px}
+  .foot .phone svg{width:26px;height:26px;fill:#fff}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr 1fr}
+    .intro-grid{grid-template-columns:1fr}
+    .intro p{max-width:none}
+    .features{border-left:0;border-top:1px solid #ddd;padding-top:16px}
+    .why-grid{grid-template-columns:1fr}
+    .why-feats{border-left:0;border-top:1px solid #444;padding-top:16px}
+  }
+  @media (max-width:700px){
+    .wrap{padding:0 18px}
+    .logo .word{font-size:44px}
+    .hero-grid{grid-template-columns:1fr;padding-bottom:0}
+    .hero-btns{flex-direction:row;flex-wrap:wrap}
+    .hero-btns .btn{min-width:0;flex:1 1 220px}
+    .stage{min-height:300px;margin:0 -18px}
+    .pedestal{left:0;right:0}
+    .cards{grid-template-columns:1fr}
+    .features{grid-template-columns:repeat(2,1fr);row-gap:20px}
+    .feature:nth-child(2){border-right:0}
+    .why-feats{grid-template-columns:1fr}
+    .why-feats .feature{border-right:0;border-bottom:1px solid #444;padding:16px}
+    .why-feats .feature:last-child{border-bottom:0}
+    .cta-box{flex-direction:column;align-items:flex-start;padding:28px 24px}
+    .foot{flex-direction:column;text-align:center;justify-content:center}
+    .foot .sep{width:60px;height:1px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="home">
+  <div class="wrap">
+    <nav class="nav">
+      <a href="#home" class="logo" aria-label="Qurix home">
+        <span class="word">QURI<b>X</b><sup>®</sup></span>
+        <span class="tag">CURE. GRIP. FIX.</span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="menu" id="menu">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#why">Why Qurix</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <h1>Tiles That Stay.<span>Bonds That Last.</span></h1>
+        <p class="lead">Premium tile adhesive for stronger, longer-lasting installations.</p>
+        <div class="hero-btns">
+          <a href="#products" class="btn btn-red">Explore Our Products &rarr;</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="pedestal"></div>
+        <div class="bag side" data-bag="Q100|T1 · Grade 1"></div>
+        <div class="bag mid" data-bag="Q200|T2 · Grade 2"></div>
+        <div class="bag side" data-bag="Q300|T3 · Grade 3"></div>
+        <div class="dots"><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= INTRO ================= -->
+<section class="intro">
+  <div class="wrap intro-grid">
+    <div>
+      <span class="eyebrow"></span>
+      <h2>A Stronger Bond<br>for a Better Build.</h2>
+      <p>Weak adhesion can compromise the finish and durability. Qurix delivers dependable bonding performance with easy application.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <svg viewBox="0 0 48 48"><path d="M9 32c-3-6 0-12 5-13l6-7c2-2 5 0 4 3l-2 6 8 1c3 0 5 3 3 5l-1 2 1 3c1 3-1 5-4 5H22c-4 0-8-2-10-5l-3-0z"/><path d="M14 19l-2 8"/></svg>
+        <span>High-Strength<br>Bonding</span>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 48 48"><path d="M6 24 24 8l18 16"/><path d="M11 20v20h10V28h6v12h10V20"/><path d="M34 11v6"/></svg>
+        <span>Interior &amp;<br>Exterior Use</span>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 48 48"><path d="M24 6 6 15l18 9 18-9z"/><path d="m6 22 18 9 18-9"/><path d="m6 29 18 9 18-9"/></svg>
+        <span>Tile-on-Tile<br>Fixing</span>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 48 48"><path d="M16 22v18H8V22z"/><path d="M16 24l7-15c3 0 5 2 4 6l-1 6h11c3 0 5 2 4 5l-3 12c-.5 2-2 3-4 3H16"/></svg>
+        <span>Easy<br>Application</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="products" id="products">
+  <div class="wrap">
+    <span class="eyebrow"></span>
+    <h2>Our Product Range</h2>
+    <p class="sub">Three Grades. One Promise – Stronger Bonds.</p>
+
+    <div class="cards">
+      <article class="card">
+        <div class="bag" data-bag="Q100|T1 · Grade 1"></div>
+        <h3>Qurix Q100</h3>
+        <span class="pill g1">T1 · Grade 1</span>
+        <p>Reliable performance for everyday tiling.</p>
+        <a href="#contact" class="more">Know More <em>&rarr;</em></a>
+      </article>
+      <article class="card">
+        <div class="bag" data-bag="Q200|T2 · Grade 2"></div>
+        <h3>Qurix Q200</h3>
+        <span class="pill g2">T2 · Grade 2</span>
+        <p>Premium strength for demanding spaces.</p>
+        <a href="#contact" class="more">Know More <em>&rarr;</em></a>
+      </article>
+      <article class="card">
+        <div class="bag" data-bag="Q300|T3 · Grade 3"></div>
+        <h3>Qurix Q300</h3>
+        <span class="pill g3">T3 · Grade 3</span>
+        <p>Advanced performance for superior results.</p>
+        <a href="#contact" class="more">Know More <em>&rarr;</em></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section class="why" id="why">
+  <div class="wrap why-grid">
+    <div>
+      <span class="eyebrow"></span>
+      <h2>Why Qurix?</h2>
+      <p>More than just a tile adhesive.</p>
+      <a href="#contact" class="btn btn-ghost">Discover More &rarr;</a>
+    </div>
+    <div class="features why-feats">
+      <div class="feature">
+        <svg viewBox="0 0 48 48"><path d="M14 8h20l8 10-18 22L6 18z"/><path d="M6 18h36M18 8l-4 10 10 22 10-22-4-10M24 8v0"/></svg>
+        <span>Reliable<br>Performance</span>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 48 48"><path d="M24 5 8 11v12c0 10 7 17 16 20 9-3 16-10 16-20V11z"/><path d="m16 24 6 6 11-12"/></svg>
+        <span>Versatile<br>Applications</span>
+      </div>
+      <div class="feature">
+        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="6"/><path d="M24 4v6M24 38v6M4 24h6M38 24h6M9.9 9.9l4.2 4.2M33.9 33.9l4.2 4.2M9.9 38.1l4.2-4.2M33.9 14.1l4.2-4.2"/><circle cx="24" cy="24" r="13"/></svg>
+        <span>Application<br>Made Simple</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="cta-box">
+      <div>
+        <h2>Every Great Space<br>Starts with a Strong Bond.</h2>
+        <p>Choose Qurix for dependable tile adhesion.</p>
+      </div>
+      <a href="tel:+919344630590" class="btn btn-white">Enquire Now &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap foot">
+    <a href="#home" class="logo sm" aria-label="Qurix home">
+      <span class="word">QURI<b>X</b><sup>®</sup></span>
+      <span class="tag">CURE. GRIP. FIX.</span>
+    </a>
+    <span class="sep"></span>
+    <a class="site" href="https://www.qurix.kipipl.com" target="_blank" rel="noopener">www.qurix.kipipl.com</a>
+    <span class="sep"></span>
+    <a class="phone" href="tel:+919344630590">
+      <svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
+      +91 93446 30590
+    </a>
+  </div>
+</footer>
+
+<script>
+  /* ---- Product bag illustration (inline SVG) ---- */
+  function bagSVG(model, grade){
+    var gradeFill = grade.indexOf('Grade 1')>-1 ? '#e31b1b' : grade.indexOf('Grade 2')>-1 ? '#e31b1b' : '#e31b1b';
+    return '' +
+    '<svg viewBox="0 0 200 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Qurix '+model+' tile adhesive 20kg bag">' +
+      '<defs>' +
+        '<linearGradient id="r'+model+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3b30"/><stop offset="1" stop-color="#a80c0c"/></linearGradient>' +
+        '<linearGradient id="k'+model+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1b1b"/><stop offset="1" stop-color="#050505"/></linearGradient>' +
+        '<clipPath id="c'+model+'"><path d="M14 22 Q100 2 186 22 L192 60 Q196 140 190 250 Q100 266 10 250 Q4 140 8 60 Z"/></clipPath>' +
+      '</defs>' +
+      '<g clip-path="url(#c'+model+')">' +
+        '<rect width="200" height="270" fill="url(#r'+model+')"/>' +
+        '<path d="M0 110 L200 70 L200 270 L0 270 Z" fill="url(#k'+model+')"/>' +
+        /* tiles */
+        '<g fill="#e31b1b" opacity=".95">' +
+          '<path d="M142 66 L174 60 L168 78 L136 84Z"/>' +
+          '<path d="M164 84 L196 78 L192 96 L160 102Z"/>' +
+          '<path d="M128 90 L156 85 L152 100 L124 106Z"/>' +
+        '</g>' +
+        /* shine */
+        '<path d="M14 22 Q100 8 186 22 L186 36 Q100 24 14 36Z" fill="#fff" opacity=".12"/>' +
+        '<path d="M8 40 Q60 30 60 130 L60 260 L8 260Z" fill="#fff" opacity=".05"/>' +
+      '</g>' +
+      '<path d="M14 22 Q100 2 186 22 L192 60 Q196 140 190 250 Q100 266 10 250 Q4 140 8 60 Z" fill="none" stroke="#000" stroke-opacity=".25" stroke-width="1.5"/>' +
+      '<text x="100" y="62" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="800" font-size="30" fill="#111" stroke="#fff" stroke-width="0" letter-spacing="-1">QURIX</text>' +
+      '<text x="100" y="62" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="800" font-size="30" fill="#fff" letter-spacing="-1">QURIX</text>' +
+      '<text x="100" y="74" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="600" font-size="5.5" fill="#fff" letter-spacing="2">CURE. GRIP. FIX.</text>' +
+      '<text x="30" y="152" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="25" fill="#fff">'+model+'</text>' +
+      '<text x="30" y="168" font-family="Poppins,Arial,sans-serif" font-weight="500" font-size="11" fill="#fff">Tile Adhesive</text>' +
+      '<rect x="30" y="176" width="62" height="13" rx="2" fill="'+gradeFill+'" transform="skewX(-8) translate(16 0)"/>' +
+      '<text x="38" y="186" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="7.5" fill="#fff" transform="skewX(-8) translate(16 0)">'+grade.replace('·','·')+'</text>' +
+      '<text x="168" y="225" text-anchor="end" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="11" fill="#fff">20kg</text>' +
+    '</svg>';
+  }
+  document.querySelectorAll('[data-bag]').forEach(function(el, i){
+    var p = el.getAttribute('data-bag').split('|');
+    /* unique gradient IDs per instance */
+    el.innerHTML = bagSVG(p[0], p[1]).replace(/(id="|url\(#)([rkc])Q(\d+)/g, '$1$2Q$3_'+i);
+  });
+
+  /* ---- Mobile menu ---- */
+  var btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
+  btn.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  menu.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ menu.classList.remove('open'); btn.classList.remove('open'); }
+  });
+</script>
+</body>
+</html>
