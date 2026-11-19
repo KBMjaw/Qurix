@@ -414,51 +414,79 @@
 </div>
 
 <script>
-  /* ---- Product bag illustration (inline SVG) ---- */
-  function bagSVG(model, grade){
+  /* ---- Product bag illustration (realistic paper sack, inline SVG) ---- */
+  function bagSVG(model, grade, uid){
     /* T1 = yellow, T2 = red, T3 = green */
-    var C = grade.indexOf('Grade 1')>-1 ? {a:'#ffd83a',b:'#d99a00',t:'#f2b705',ink:'#111'}
-          : grade.indexOf('Grade 2')>-1 ? {a:'#ff3b30',b:'#a80c0c',t:'#e31b1b',ink:'#fff'}
-          : {a:'#34c759',b:'#0f7a33',t:'#1a9e45',ink:'#fff'};
-    var gradeFill = C.t;
+    var C = grade.indexOf('Grade 1')>-1 ? {a:'#ffe261',b:'#e0a400',t:'#f2b705',ink:'#161616'}
+          : grade.indexOf('Grade 2')>-1 ? {a:'#ff4a3d',b:'#a80c0c',t:'#e31b1b',ink:'#fff'}
+          : {a:'#3fd16a',b:'#0e7a33',t:'#1a9e45',ink:'#fff'};
+    var u = 'b' + uid + '_', F = 'Poppins,Arial,sans-serif';
+    /* crimped, serrated top edge */
+    var teeth = 'M33 9', x;
+    for(x = 33; x < 187; x += 4){ teeth += ' L' + (x+2) + ' 6.5 L' + (x+4) + ' 9'; }
+    var body = teeth + ' L190 42 C207 72 211 122 209 190 C208 232 207 254 201 272 Q110 296 19 272 C13 254 12 232 11 190 C9 122 13 72 30 42 Z';
+    var seamLines = '';
+    for(x = 36; x < 186; x += 5){ seamLines += '<path d="M'+x+' 10 L'+(x+(x<110?-.6:.6))+' 40" />'; }
     return '' +
-    '<svg viewBox="0 0 200 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Qurix '+model+' tile adhesive 20kg bag">' +
+    '<svg viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Qurix '+model+' tile adhesive 20kg bag">' +
       '<defs>' +
-        '<linearGradient id="r'+model+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+C.a+'"/><stop offset="1" stop-color="'+C.b+'"/></linearGradient>' +
-        '<linearGradient id="k'+model+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1b1b"/><stop offset="1" stop-color="#050505"/></linearGradient>' +
-        '<clipPath id="c'+model+'"><path d="M14 22 Q100 2 186 22 L192 60 Q196 140 190 250 Q100 266 10 250 Q4 140 8 60 Z"/></clipPath>' +
+        '<clipPath id="'+u+'c"><path d="'+body+'"/></clipPath>' +
+        '<linearGradient id="'+u+'col" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+C.a+'"/><stop offset="1" stop-color="'+C.b+'"/></linearGradient>' +
+        '<linearGradient id="'+u+'blk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#262626"/><stop offset=".55" stop-color="#121212"/><stop offset="1" stop-color="#050505"/></linearGradient>' +
+        '<linearGradient id="'+u+'bulge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".16" stop-color="#000" stop-opacity=".08"/><stop offset=".34" stop-color="#fff" stop-opacity=".16"/><stop offset=".52" stop-color="#fff" stop-opacity="0"/><stop offset=".82" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></linearGradient>' +
+        '<linearGradient id="'+u+'vert" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".18" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></linearGradient>' +
+        '<linearGradient id="'+u+'seam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".55" stop-color="#000" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></linearGradient>' +
+        '<linearGradient id="'+u+'tile" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+C.a+'"/><stop offset="1" stop-color="'+C.t+'"/></linearGradient>' +
+        '<radialGradient id="'+u+'spec" cx=".3" cy=".25" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>' +
       '</defs>' +
-      '<g clip-path="url(#c'+model+')">' +
-        '<rect width="200" height="270" fill="url(#r'+model+')"/>' +
-        '<path d="M0 110 L200 70 L200 270 L0 270 Z" fill="url(#k'+model+')"/>' +
-        /* tiles */
-        '<g fill="'+C.t+'" opacity=".95">' +
-          '<path d="M142 66 L174 60 L168 78 L136 84Z"/>' +
-          '<path d="M164 84 L196 78 L192 96 L160 102Z"/>' +
-          '<path d="M128 90 L156 85 L152 100 L124 106Z"/>' +
+      '<g clip-path="url(#'+u+'c)">' +
+        '<rect width="220" height="300" fill="url(#'+u+'blk)"/>' +
+        '<path d="M0 0 H220 V92 L0 132 Z" fill="url(#'+u+'col)"/>' +
+        '<path d="M0 132 L220 92" stroke="#fff" stroke-opacity=".55" stroke-width="1.4" fill="none"/>' +
+        /* tile graphic */
+        '<g>' +
+          '<path d="M132 120 L176 112 L171 132 L127 141Z" fill="url(#'+u+'tile)"/>' +
+          '<path d="M158 143 L202 135 L197 155 L153 164Z" fill="url(#'+u+'tile)" opacity=".92"/>' +
         '</g>' +
-        /* shine */
-        '<path d="M14 22 Q100 8 186 22 L186 36 Q100 24 14 36Z" fill="#fff" opacity=".12"/>' +
-        '<path d="M8 40 Q60 30 60 130 L60 260 L8 260Z" fill="#fff" opacity=".05"/>' +
+        '<rect width="220" height="300" fill="url(#'+u+'vert)"/>' +
+        '<rect width="220" height="300" fill="url(#'+u+'bulge)"/>' +
+        '<ellipse cx="70" cy="110" rx="60" ry="85" fill="url(#'+u+'spec)"/>' +
+        /* paper creases */
+        '<g fill="none" stroke-linecap="round">' +
+          '<path d="M30 44 Q52 78 40 120" stroke="#fff" stroke-opacity=".14" stroke-width="1.3"/>' +
+          '<path d="M34 46 Q58 82 47 124" stroke="#000" stroke-opacity=".22" stroke-width="1"/>' +
+          '<path d="M190 44 Q170 80 182 124" stroke="#fff" stroke-opacity=".12" stroke-width="1.3"/>' +
+          '<path d="M186 46 Q166 84 176 130" stroke="#000" stroke-opacity=".25" stroke-width="1"/>' +
+          '<path d="M16 200 Q40 212 30 250" stroke="#fff" stroke-opacity=".09" stroke-width="1.2"/>' +
+          '<path d="M204 196 Q182 214 192 252" stroke="#fff" stroke-opacity=".08" stroke-width="1.2"/>' +
+          '<path d="M60 262 Q110 276 160 262" stroke="#fff" stroke-opacity=".12" stroke-width="1.2"/>' +
+          '<path d="M24 160 Q60 168 90 158" stroke="#fff" stroke-opacity=".05" stroke-width="1.2"/>' +
+        '</g>' +
+        /* crimped top seam */
+        '<rect x="0" y="0" width="220" height="42" fill="#fff" fill-opacity=".05"/>' +
+        '<g stroke="#000" stroke-opacity=".28" stroke-width=".9" fill="none">'+seamLines+'</g>' +
+        '<rect x="0" y="0" width="220" height="43" fill="url(#'+u+'seam)"/>' +
+        '<path d="M26 43 Q110 52 194 43" stroke="#000" stroke-opacity=".45" stroke-width="2.2" fill="none"/>' +
       '</g>' +
-      '<path d="M14 22 Q100 2 186 22 L192 60 Q196 140 190 250 Q100 266 10 250 Q4 140 8 60 Z" fill="none" stroke="#000" stroke-opacity=".25" stroke-width="1.5"/>' +
-      '<text x="100" y="62" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="800" font-size="30" fill="#111" stroke="#fff" stroke-width="0" letter-spacing="-1">QURIX</text>' +
-      '<text x="100" y="62" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="800" font-size="30" fill="'+C.ink+'" letter-spacing="-1">QURIX</text>' +
-      '<text x="100" y="74" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="600" font-size="5.5" fill="'+C.ink+'" letter-spacing="2">CURE. GRIP. FIX.</text>' +
-      '<text x="30" y="152" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="25" fill="#fff">'+model+'</text>' +
-      '<text x="30" y="168" font-family="Poppins,Arial,sans-serif" font-weight="500" font-size="11" fill="#fff">Tile Adhesive</text>' +
-      '<rect x="30" y="176" width="62" height="13" rx="2" fill="'+gradeFill+'" transform="skewX(-8) translate(16 0)"/>' +
-      '<text x="38" y="186" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="7.5" fill="'+C.ink+'" transform="skewX(-8) translate(16 0)">'+grade.replace('·','·')+'</text>' +
-      '<text x="168" y="225" text-anchor="end" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="11" fill="#fff">20kg</text>' +
+      '<path d="'+body+'" fill="none" stroke="#000" stroke-opacity=".4" stroke-width="1.4"/>' +
+      /* printed artwork */
+      '<text x="110" y="82" text-anchor="middle" font-family="'+F+'" font-weight="800" font-size="31" fill="'+C.ink+'" letter-spacing="-1">QURIX</text>' +
+      '<text x="110" y="93" text-anchor="middle" font-family="'+F+'" font-weight="600" font-size="5.6" fill="'+C.ink+'" letter-spacing="2.2">CURE. GRIP. FIX.</text>' +
+      '<text x="30" y="178" font-family="'+F+'" font-weight="800" font-size="35" fill="#fff">'+model+'</text>' +
+      '<text x="31" y="196" font-family="'+F+'" font-weight="500" font-size="12" fill="#fff" letter-spacing=".5">Tile Adhesive</text>' +
+      '<g transform="skewX(-8) translate(29 0)"><rect x="30" y="204" width="70" height="15" rx="2" fill="'+C.t+'"/>' +
+      '<text x="37" y="215" font-family="'+F+'" font-weight="700" font-size="8" fill="'+C.ink+'">'+grade+'</text></g>' +
+      '<circle cx="164" cy="240" r="19" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="1.4"/>' +
+      '<text x="164" y="243" text-anchor="middle" font-family="'+F+'" font-weight="800" font-size="16" fill="#fff">20</text>' +
+      '<text x="164" y="252" text-anchor="middle" font-family="'+F+'" font-weight="600" font-size="6.5" fill="#fff" letter-spacing="1">KG</text>' +
+      '<rect x="30" y="236" width="38" height="20" rx="1.5" fill="#fff" fill-opacity=".92"/>' +
+      '<path d="M33 238v16M36 238v16M38 238v16M42 238v16M44 238v16M48 238v16M50 238v16M54 238v16M57 238v16M60 238v16M64 238v16" stroke="#111" stroke-width="1"/>' +
     '</svg>';
   }
   document.querySelectorAll('[data-bag]').forEach(function(el, i){
     var p = el.getAttribute('data-bag').split('|');
-    /* unique gradient IDs per instance */
-    el.innerHTML = bagSVG(p[0], p[1]).replace(/(id="|url\(#)([rkc])Q(\d+)/g, '$1$2Q$3_'+i);
+    el.innerHTML = bagSVG(p[0], p[1], i);
   });
-
-  
 
   /* ---- Mobile menu ---- */
   var btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
@@ -537,7 +565,7 @@
     var pill = document.getElementById('mPill'); pill.textContent = d.pill; pill.className = 'pill ' + d.cls;
     document.getElementById('mLead').textContent = d.lead;
     var bag = document.getElementById('mBag'), p = d.bag.split('|');
-    bag.innerHTML = bagSVG(p[0], p[1]).replace(/(id="|url\(#)([rkc])Q(\d+)/g, '$1$2Q$3_m');
+    bag.innerHTML = bagSVG(p[0], p[1], 'm');
     document.getElementById('mFeat').innerHTML = d.feat.map(function(t,i){ return '<li style="animation-delay:'+(.15+i*.08)+'s">'+t+'</li>'; }).join('');
     document.getElementById('mUse').innerHTML = d.use.map(function(t,i){ return '<span style="animation-delay:'+(.3+i*.07)+'s">'+t+'</span>'; }).join('');
     modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
