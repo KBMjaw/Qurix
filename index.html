@@ -119,8 +119,9 @@
   .card .bag{width:58%;max-width:190px;margin:0 auto clamp(6px,1vw,12px);filter:drop-shadow(0 12px 12px rgba(0,0,0,.35));transition:transform .5s var(--ease)}
   .card:hover .bag{transform:translateY(-6px) rotate(-3deg) scale(1.05)}
   .card h3{font-size:clamp(12px,2vw,22px);font-weight:700}
+  .card:nth-child(1) h3{color:var(--red)}.card:nth-child(2) h3{color:#d99a00}.card:nth-child(3) h3{color:#1f5fe0}
   .pill{display:inline-block;font-size:clamp(9px,1.2vw,14px);font-weight:600;color:#fff;padding:clamp(3px,.5vw,5px) clamp(8px,1.8vw,18px);border-radius:999px;margin:clamp(5px,1vw,10px) 0 clamp(6px,1.2vw,14px);white-space:nowrap}
-  .pill.g1{background:#777}.pill.g2{background:var(--red)}.pill.g3{background:#111}
+  .pill.g1{background:var(--red)}.pill.g2{background:#f2b705;color:#111}.pill.g3{background:#1f5fe0}
   .card p{font-size:clamp(10px,1.5vw,17px);line-height:1.35;color:#222;max-width:260px;margin:0 auto clamp(8px,1.2vw,14px)}
   .more{display:inline-flex;gap:5px;align-items:center;font-weight:600;font-size:clamp(10px,1.4vw,16px);border-bottom:2px solid var(--red);padding-bottom:1px;white-space:nowrap}
   .more em{color:var(--red);font-style:normal;transition:transform .25s var(--ease)}
@@ -363,11 +364,15 @@
 <script>
   /* ---- Product bag illustration (inline SVG) ---- */
   function bagSVG(model, grade){
-    var gradeFill = grade.indexOf('Grade 1')>-1 ? '#e31b1b' : grade.indexOf('Grade 2')>-1 ? '#e31b1b' : '#e31b1b';
+    /* T1 = red, T2 = yellow, T3 = blue */
+    var C = grade.indexOf('Grade 1')>-1 ? {a:'#ff3b30',b:'#a80c0c',t:'#e31b1b',ink:'#fff'}
+          : grade.indexOf('Grade 2')>-1 ? {a:'#ffd83a',b:'#d99a00',t:'#f2b705',ink:'#111'}
+          : {a:'#3d8bff',b:'#1546b8',t:'#1f5fe0',ink:'#fff'};
+    var gradeFill = C.t;
     return '' +
     '<svg viewBox="0 0 200 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Qurix '+model+' tile adhesive 20kg bag">' +
       '<defs>' +
-        '<linearGradient id="r'+model+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3b30"/><stop offset="1" stop-color="#a80c0c"/></linearGradient>' +
+        '<linearGradient id="r'+model+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+C.a+'"/><stop offset="1" stop-color="'+C.b+'"/></linearGradient>' +
         '<linearGradient id="k'+model+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1b1b"/><stop offset="1" stop-color="#050505"/></linearGradient>' +
         '<clipPath id="c'+model+'"><path d="M14 22 Q100 2 186 22 L192 60 Q196 140 190 250 Q100 266 10 250 Q4 140 8 60 Z"/></clipPath>' +
       '</defs>' +
@@ -375,7 +380,7 @@
         '<rect width="200" height="270" fill="url(#r'+model+')"/>' +
         '<path d="M0 110 L200 70 L200 270 L0 270 Z" fill="url(#k'+model+')"/>' +
         /* tiles */
-        '<g fill="#e31b1b" opacity=".95">' +
+        '<g fill="'+C.t+'" opacity=".95">' +
           '<path d="M142 66 L174 60 L168 78 L136 84Z"/>' +
           '<path d="M164 84 L196 78 L192 96 L160 102Z"/>' +
           '<path d="M128 90 L156 85 L152 100 L124 106Z"/>' +
@@ -386,12 +391,12 @@
       '</g>' +
       '<path d="M14 22 Q100 2 186 22 L192 60 Q196 140 190 250 Q100 266 10 250 Q4 140 8 60 Z" fill="none" stroke="#000" stroke-opacity=".25" stroke-width="1.5"/>' +
       '<text x="100" y="62" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="800" font-size="30" fill="#111" stroke="#fff" stroke-width="0" letter-spacing="-1">QURIX</text>' +
-      '<text x="100" y="62" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="800" font-size="30" fill="#fff" letter-spacing="-1">QURIX</text>' +
-      '<text x="100" y="74" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="600" font-size="5.5" fill="#fff" letter-spacing="2">CURE. GRIP. FIX.</text>' +
+      '<text x="100" y="62" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="800" font-size="30" fill="'+C.ink+'" letter-spacing="-1">QURIX</text>' +
+      '<text x="100" y="74" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="600" font-size="5.5" fill="'+C.ink+'" letter-spacing="2">CURE. GRIP. FIX.</text>' +
       '<text x="30" y="152" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="25" fill="#fff">'+model+'</text>' +
       '<text x="30" y="168" font-family="Poppins,Arial,sans-serif" font-weight="500" font-size="11" fill="#fff">Tile Adhesive</text>' +
       '<rect x="30" y="176" width="62" height="13" rx="2" fill="'+gradeFill+'" transform="skewX(-8) translate(16 0)"/>' +
-      '<text x="38" y="186" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="7.5" fill="#fff" transform="skewX(-8) translate(16 0)">'+grade.replace('·','·')+'</text>' +
+      '<text x="38" y="186" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="7.5" fill="'+C.ink+'" transform="skewX(-8) translate(16 0)">'+grade.replace('·','·')+'</text>' +
       '<text x="168" y="225" text-anchor="end" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="11" fill="#fff">20kg</text>' +
     '</svg>';
   }
