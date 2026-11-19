@@ -119,9 +119,9 @@
   .card .bag{width:58%;max-width:190px;margin:0 auto clamp(6px,1vw,12px);filter:drop-shadow(0 12px 12px rgba(0,0,0,.35));transition:transform .5s var(--ease)}
   .card:hover .bag{transform:translateY(-6px) rotate(-3deg) scale(1.05)}
   .card h3{font-size:clamp(12px,2vw,22px);font-weight:700}
-  .card:nth-child(1) h3{color:var(--red)}.card:nth-child(2) h3{color:#d99a00}.card:nth-child(3) h3{color:#1f5fe0}
+  .card:nth-child(1) h3{color:#d99a00}.card:nth-child(2) h3{color:var(--red)}.card:nth-child(3) h3{color:#1a9e45}
   .pill{display:inline-block;font-size:clamp(9px,1.2vw,14px);font-weight:600;color:#fff;padding:clamp(3px,.5vw,5px) clamp(8px,1.8vw,18px);border-radius:999px;margin:clamp(5px,1vw,10px) 0 clamp(6px,1.2vw,14px);white-space:nowrap}
-  .pill.g1{background:var(--red)}.pill.g2{background:#f2b705;color:#111}.pill.g3{background:#1f5fe0}
+  .pill.g1{background:#f2b705;color:#111}.pill.g2{background:var(--red)}.pill.g3{background:#1a9e45}
   .card p{font-size:clamp(10px,1.5vw,17px);line-height:1.35;color:#222;max-width:260px;margin:0 auto clamp(8px,1.2vw,14px)}
   .more{display:inline-flex;gap:5px;align-items:center;font-weight:600;font-size:clamp(10px,1.4vw,16px);border-bottom:2px solid var(--red);padding-bottom:1px;white-space:nowrap}
   .more em{color:var(--red);font-style:normal;transition:transform .25s var(--ease)}
@@ -364,10 +364,10 @@
 <script>
   /* ---- Product bag illustration (inline SVG) ---- */
   function bagSVG(model, grade){
-    /* T1 = red, T2 = yellow, T3 = blue */
-    var C = grade.indexOf('Grade 1')>-1 ? {a:'#ff3b30',b:'#a80c0c',t:'#e31b1b',ink:'#fff'}
-          : grade.indexOf('Grade 2')>-1 ? {a:'#ffd83a',b:'#d99a00',t:'#f2b705',ink:'#111'}
-          : {a:'#3d8bff',b:'#1546b8',t:'#1f5fe0',ink:'#fff'};
+    /* T1 = yellow, T2 = red, T3 = green */
+    var C = grade.indexOf('Grade 1')>-1 ? {a:'#ffd83a',b:'#d99a00',t:'#f2b705',ink:'#111'}
+          : grade.indexOf('Grade 2')>-1 ? {a:'#ff3b30',b:'#a80c0c',t:'#e31b1b',ink:'#fff'}
+          : {a:'#34c759',b:'#0f7a33',t:'#1a9e45',ink:'#fff'};
     var gradeFill = C.t;
     return '' +
     '<svg viewBox="0 0 200 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Qurix '+model+' tile adhesive 20kg bag">' +
