@@ -212,6 +212,20 @@
   .sheet-cta .btn-close:hover{background:#e9e9eb}
   body.lock{overflow:hidden}
   @media (min-width:700px){.modal{align-items:center;padding:24px}.sheet{border-radius:22px;padding-bottom:24px}.sheet-head{padding:26px 28px 22px}.sheet-body{padding:22px 28px 0}.sheet-cta{padding:22px 28px 0}.sheet-head .bag{width:100px}}
+
+  /* ---------- Product cards ---------- */
+  .products{background:#fff}
+  .cards{align-items:stretch}
+  .card{display:flex;flex-direction:column;align-items:center;background:#f4f4f5;border:0;border-radius:clamp(14px,2.4vw,26px);padding:clamp(14px,2.4vw,26px) clamp(8px,1.6vw,18px) clamp(16px,2.4vw,26px);box-shadow:none}
+  .card:hover{box-shadow:0 22px 46px rgba(20,24,35,.12)}
+  .shot{position:relative;width:100%;aspect-ratio:4/5;display:grid;place-items:center;margin-bottom:clamp(8px,1.4vw,16px)}
+  .shot .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;transition:transform .5s var(--ease)}
+  .shot.has-photo .bag{display:none}
+  .hphoto{display:block;width:100%;height:auto}
+  .card:hover .shot .photo{transform:translateY(-6px) scale(1.03)}
+  .shot .bag{width:86%;max-width:300px;margin:0;filter:drop-shadow(0 10px 10px rgba(0,0,0,.14));transition:transform .5s var(--ease)}
+  .card:hover .shot .bag{transform:translateY(-6px) scale(1.03)}
+  .card p{flex:1}
   @media (max-width:340px){.foot a.site{font-size:9px}.btn{padding:11px 16px}}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1}}
 </style>
@@ -246,9 +260,9 @@
       </div>
       <div class="stage" aria-label="Qurix Q100, Q200 and Q300 tile adhesive">
         <div class="pedestal"></div>
-        <div class="bag side" data-bag="Q100|T1 · Grade 1"></div>
-        <div class="bag mid" data-bag="Q200|T2 · Grade 2"></div>
-        <div class="bag side" data-bag="Q300|T3 · Grade 3"></div>
+        <div class="bag side"><div data-bag="Q100|T1 – Grade 1"></div><img class="hphoto" src="assets/qurix-q100.webp" alt="QURIX Q100 T1 – Grade 1 – 20 kg tile adhesive bag" width="960" height="1200" decoding="async" fetchpriority="high" onload="this.previousElementSibling.style.display='none'" onerror="this.remove()"></div>
+        <div class="bag mid"><div data-bag="Q200|T2 – Grade 2"></div><img class="hphoto" src="assets/qurix-q200.webp" alt="QURIX Q200 T2 – Grade 2 – 20 kg tile adhesive bag" width="960" height="1200" decoding="async" fetchpriority="high" onload="this.previousElementSibling.style.display='none'" onerror="this.remove()"></div>
+        <div class="bag side"><div data-bag="Q300|T3 – Grade 3"></div><img class="hphoto" src="assets/qurix-q300.webp" alt="QURIX Q300 T3 – Grade 3 – 20 kg tile adhesive bag" width="960" height="1200" decoding="async" fetchpriority="high" onload="this.previousElementSibling.style.display='none'" onerror="this.remove()"></div>
       </div>
     </div>
   </div>
@@ -294,23 +308,23 @@
 
     <div class="cards">
       <article class="card reveal" style="--d:.05s">
-        <div class="bag" data-bag="Q100|T1 · Grade 1"></div>
+        <div class="shot"><div class="bag" data-bag="Q100|T1 – Grade 1"></div><img class="photo" src="assets/qurix-q100.webp" alt="QURIX Q100 T1 – Grade 1 – 20 kg tile adhesive bag" width="640" height="800" loading="lazy" decoding="async" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <h3>Qurix Q100</h3>
-        <span class="pill g1">T1 · Grade 1</span>
+        <span class="pill g1">T1 – Grade 1</span>
         <p>Reliable performance for everyday tiling.</p>
         <button type="button" class="more" data-more="q100">Know More <em>&rarr;</em></button>
       </article>
       <article class="card reveal" style="--d:.18s">
-        <div class="bag" data-bag="Q200|T2 · Grade 2"></div>
+        <div class="shot"><div class="bag" data-bag="Q200|T2 – Grade 2"></div><img class="photo" src="assets/qurix-q200.webp" alt="QURIX Q200 T2 – Grade 2 – 20 kg tile adhesive bag" width="640" height="800" loading="lazy" decoding="async" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <h3>Qurix Q200</h3>
-        <span class="pill g2">T2 · Grade 2</span>
+        <span class="pill g2">T2 – Grade 2</span>
         <p>Premium strength for demanding spaces.</p>
         <button type="button" class="more" data-more="q200">Know More <em>&rarr;</em></button>
       </article>
       <article class="card reveal" style="--d:.3s">
-        <div class="bag" data-bag="Q300|T3 · Grade 3"></div>
+        <div class="shot"><div class="bag" data-bag="Q300|T3 – Grade 3"></div><img class="photo" src="assets/qurix-q300.webp" alt="QURIX Q300 T3 – Grade 3 – 20 kg tile adhesive bag" width="640" height="800" loading="lazy" decoding="async" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <h3>Qurix Q300</h3>
-        <span class="pill g3">T3 · Grade 3</span>
+        <span class="pill g3">T3 – Grade 3</span>
         <p>Advanced performance for superior results.</p>
         <button type="button" class="more" data-more="q300">Know More <em>&rarr;</em></button>
       </article>
@@ -414,73 +428,70 @@
 </div>
 
 <script>
-  /* ---- Product bag illustration (realistic paper sack, inline SVG) ---- */
+  /* ---- Product bag illustration (glossy pouch, inline SVG) ---- */
   function bagSVG(model, grade, uid){
     /* T1 = yellow, T2 = red, T3 = green */
-    var C = grade.indexOf('Grade 1')>-1 ? {a:'#ffe261',b:'#e0a400',t:'#f2b705',ink:'#161616'}
-          : grade.indexOf('Grade 2')>-1 ? {a:'#ff4a3d',b:'#a80c0c',t:'#e31b1b',ink:'#fff'}
-          : {a:'#3fd16a',b:'#0e7a33',t:'#1a9e45',ink:'#fff'};
+    var C = grade.indexOf('Grade 1')>-1 ? {a:'#ffd62e',b:'#e3a300',t:'#f5b800',ink:'#111',bt:'#111'}
+          : grade.indexOf('Grade 2')>-1 ? {a:'#ff3a30',b:'#bf0b0b',t:'#e31b1b',ink:'#fff',bt:'#fff'}
+          : {a:'#2fd05f',b:'#0b8a3a',t:'#16a34a',ink:'#fff',bt:'#fff'};
     var u = 'b' + uid + '_', F = 'Poppins,Arial,sans-serif';
-    /* crimped, serrated top edge */
-    var teeth = 'M33 9', x;
-    for(x = 33; x < 187; x += 4){ teeth += ' L' + (x+2) + ' 6.5 L' + (x+4) + ' 9'; }
-    var body = teeth + ' L190 42 C207 72 211 122 209 190 C208 232 207 254 201 272 Q110 296 19 272 C13 254 12 232 11 190 C9 122 13 72 30 42 Z';
-    var seamLines = '';
-    for(x = 36; x < 186; x += 5){ seamLines += '<path d="M'+x+' 10 L'+(x+(x<110?-.6:.6))+' 40" />'; }
+    var body = 'M26 12 Q120 5 214 12 L219 36 C228 72 232 132 231 200 C231 226 234 246 240 258 Q120 279 0 258 C6 246 9 226 9 200 C8 132 12 72 21 36 Z';
+    var seam = '', x;
+    for(x = 30; x < 212; x += 4.6){ seam += 'M'+x+' 15 L'+(x+(x<120?-.6:.6))+' 35 '; }
     return '' +
-    '<svg viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Qurix '+model+' tile adhesive 20kg bag">' +
+    '<svg viewBox="0 0 240 282" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Qurix '+model+' 20 kg tile adhesive bag">' +
       '<defs>' +
         '<clipPath id="'+u+'c"><path d="'+body+'"/></clipPath>' +
         '<linearGradient id="'+u+'col" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+C.a+'"/><stop offset="1" stop-color="'+C.b+'"/></linearGradient>' +
-        '<linearGradient id="'+u+'blk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#262626"/><stop offset=".55" stop-color="#121212"/><stop offset="1" stop-color="#050505"/></linearGradient>' +
-        '<linearGradient id="'+u+'bulge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".16" stop-color="#000" stop-opacity=".08"/><stop offset=".34" stop-color="#fff" stop-opacity=".16"/><stop offset=".52" stop-color="#fff" stop-opacity="0"/><stop offset=".82" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></linearGradient>' +
-        '<linearGradient id="'+u+'vert" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".18" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></linearGradient>' +
-        '<linearGradient id="'+u+'seam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".55" stop-color="#000" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></linearGradient>' +
-        '<linearGradient id="'+u+'tile" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+C.a+'"/><stop offset="1" stop-color="'+C.t+'"/></linearGradient>' +
-        '<radialGradient id="'+u+'spec" cx=".3" cy=".25" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>' +
+        '<linearGradient id="'+u+'blk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d1d1f"/><stop offset=".6" stop-color="#0d0d0e"/><stop offset="1" stop-color="#030303"/></linearGradient>' +
+        '<linearGradient id="'+u+'bulge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".5"/><stop offset=".14" stop-color="#000" stop-opacity=".05"/><stop offset=".3" stop-color="#fff" stop-opacity=".2"/><stop offset=".46" stop-color="#fff" stop-opacity="0"/><stop offset=".84" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></linearGradient>' +
+        '<linearGradient id="'+u+'gloss" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
+        '<linearGradient id="'+u+'seam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".4"/><stop offset=".6" stop-color="#000" stop-opacity=".1"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></linearGradient>' +
+        '<linearGradient id="'+u+'acc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+C.a+'"/><stop offset="1" stop-color="'+C.t+'"/></linearGradient>' +
+        '<filter id="'+u+'blur" x="-20%" y="-100%" width="140%" height="300%"><feGaussianBlur stdDeviation="4"/></filter>' +
       '</defs>' +
+      /* contact shadow */
+      '<ellipse cx="122" cy="269" rx="116" ry="9" fill="#000" opacity=".28" filter="url(#'+u+'blur)"/>' +
       '<g clip-path="url(#'+u+'c)">' +
-        '<rect width="220" height="300" fill="url(#'+u+'blk)"/>' +
-        '<path d="M0 0 H220 V92 L0 132 Z" fill="url(#'+u+'col)"/>' +
-        '<path d="M0 132 L220 92" stroke="#fff" stroke-opacity=".55" stroke-width="1.4" fill="none"/>' +
-        /* tile graphic */
-        '<g>' +
-          '<path d="M132 120 L176 112 L171 132 L127 141Z" fill="url(#'+u+'tile)"/>' +
-          '<path d="M158 143 L202 135 L197 155 L153 164Z" fill="url(#'+u+'tile)" opacity=".92"/>' +
-        '</g>' +
-        '<rect width="220" height="300" fill="url(#'+u+'vert)"/>' +
-        '<rect width="220" height="300" fill="url(#'+u+'bulge)"/>' +
-        '<ellipse cx="70" cy="110" rx="60" ry="85" fill="url(#'+u+'spec)"/>' +
-        /* paper creases */
+        '<rect width="240" height="282" fill="url(#'+u+'blk)"/>' +
+        '<path d="M0 0 H240 V116 L0 166 Z" fill="url(#'+u+'col)"/>' +
+        /* accent slabs */
+        '<path d="M150 124 L196 112 L188 134 L142 146Z" fill="url(#'+u+'acc)"/>' +
+        '<path d="M170 148 L214 138 L206 160 L162 170Z" fill="url(#'+u+'acc)"/>' +
+        /* glossy film */
+        '<rect width="240" height="282" fill="url(#'+u+'bulge)"/>' +
+        '<path d="M44 40 C34 90 34 150 42 196 L56 196 C50 150 50 90 58 40Z" fill="url(#'+u+'gloss)" opacity=".7"/>' +
+        '<path d="M92 40 C88 80 92 120 104 150 L110 148 C100 118 98 80 100 40Z" fill="#fff" opacity=".1"/>' +
+        '<path d="M196 60 C208 100 214 150 212 200 L218 200 C220 150 214 100 202 60Z" fill="#fff" opacity=".09"/>' +
+        /* wrinkles near seal and base */
         '<g fill="none" stroke-linecap="round">' +
-          '<path d="M30 44 Q52 78 40 120" stroke="#fff" stroke-opacity=".14" stroke-width="1.3"/>' +
-          '<path d="M34 46 Q58 82 47 124" stroke="#000" stroke-opacity=".22" stroke-width="1"/>' +
-          '<path d="M190 44 Q170 80 182 124" stroke="#fff" stroke-opacity=".12" stroke-width="1.3"/>' +
-          '<path d="M186 46 Q166 84 176 130" stroke="#000" stroke-opacity=".25" stroke-width="1"/>' +
-          '<path d="M16 200 Q40 212 30 250" stroke="#fff" stroke-opacity=".09" stroke-width="1.2"/>' +
-          '<path d="M204 196 Q182 214 192 252" stroke="#fff" stroke-opacity=".08" stroke-width="1.2"/>' +
-          '<path d="M60 262 Q110 276 160 262" stroke="#fff" stroke-opacity=".12" stroke-width="1.2"/>' +
-          '<path d="M24 160 Q60 168 90 158" stroke="#fff" stroke-opacity=".05" stroke-width="1.2"/>' +
+          '<path d="M24 38 Q48 58 38 96" stroke="#fff" stroke-opacity=".28" stroke-width="1.6"/>' +
+          '<path d="M30 40 Q54 62 46 102" stroke="#000" stroke-opacity=".2" stroke-width="1.2"/>' +
+          '<path d="M216 38 Q192 60 202 98" stroke="#fff" stroke-opacity=".22" stroke-width="1.6"/>' +
+          '<path d="M100 40 Q112 60 108 84" stroke="#fff" stroke-opacity=".18" stroke-width="1.2"/>' +
+          '<path d="M12 216 Q36 236 24 258" stroke="#fff" stroke-opacity=".12" stroke-width="1.4"/>' +
+          '<path d="M228 216 Q204 236 216 258" stroke="#fff" stroke-opacity=".1" stroke-width="1.4"/>' +
+          '<path d="M60 262 Q120 270 180 262" stroke="#fff" stroke-opacity=".16" stroke-width="1.4"/>' +
         '</g>' +
-        /* crimped top seam */
-        '<rect x="0" y="0" width="220" height="42" fill="#fff" fill-opacity=".05"/>' +
-        '<g stroke="#000" stroke-opacity=".28" stroke-width=".9" fill="none">'+seamLines+'</g>' +
-        '<rect x="0" y="0" width="220" height="43" fill="url(#'+u+'seam)"/>' +
-        '<path d="M26 43 Q110 52 194 43" stroke="#000" stroke-opacity=".45" stroke-width="2.2" fill="none"/>' +
+        /* heat-seal band */
+        '<rect x="0" y="0" width="240" height="38" fill="#fff" fill-opacity=".06"/>' +
+        '<path d="'+seam+'" stroke="#000" stroke-opacity=".22" stroke-width=".8" fill="none"/>' +
+        '<rect x="0" y="0" width="240" height="38" fill="url(#'+u+'seam)"/>' +
+        '<path d="M22 37 Q120 45 218 37" stroke="#000" stroke-opacity=".4" stroke-width="2" fill="none"/>' +
       '</g>' +
-      '<path d="'+body+'" fill="none" stroke="#000" stroke-opacity=".4" stroke-width="1.4"/>' +
+      '<path d="'+body+'" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="1.2"/>' +
       /* printed artwork */
-      '<text x="110" y="82" text-anchor="middle" font-family="'+F+'" font-weight="800" font-size="31" fill="'+C.ink+'" letter-spacing="-1">QURIX</text>' +
-      '<text x="110" y="93" text-anchor="middle" font-family="'+F+'" font-weight="600" font-size="5.6" fill="'+C.ink+'" letter-spacing="2.2">CURE. GRIP. FIX.</text>' +
-      '<text x="30" y="178" font-family="'+F+'" font-weight="800" font-size="35" fill="#fff">'+model+'</text>' +
-      '<text x="31" y="196" font-family="'+F+'" font-weight="500" font-size="12" fill="#fff" letter-spacing=".5">Tile Adhesive</text>' +
-      '<g transform="skewX(-8) translate(29 0)"><rect x="30" y="204" width="70" height="15" rx="2" fill="'+C.t+'"/>' +
-      '<text x="37" y="215" font-family="'+F+'" font-weight="700" font-size="8" fill="'+C.ink+'">'+grade+'</text></g>' +
-      '<circle cx="164" cy="240" r="19" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="1.4"/>' +
-      '<text x="164" y="243" text-anchor="middle" font-family="'+F+'" font-weight="800" font-size="16" fill="#fff">20</text>' +
-      '<text x="164" y="252" text-anchor="middle" font-family="'+F+'" font-weight="600" font-size="6.5" fill="#fff" letter-spacing="1">KG</text>' +
-      '<rect x="30" y="236" width="38" height="20" rx="1.5" fill="#fff" fill-opacity=".92"/>' +
-      '<path d="M33 238v16M36 238v16M38 238v16M42 238v16M44 238v16M48 238v16M50 238v16M54 238v16M57 238v16M60 238v16M64 238v16" stroke="#111" stroke-width="1"/>' +
+      '<text x="120" y="86" text-anchor="middle" font-family="'+F+'" font-weight="800" font-size="35" fill="'+C.ink+'" letter-spacing="-1">QURIX</text>' +
+      '<text x="120" y="100" text-anchor="middle" font-family="'+F+'" font-weight="600" font-size="7" fill="'+C.ink+'" letter-spacing="3.4">TILE ADHESIVE</text>' +
+      '<text x="38" y="186" font-family="'+F+'" font-weight="800" font-size="40" fill="#fff" letter-spacing="-.5">'+model+'</text>' +
+      '<text x="39" y="205" font-family="'+F+'" font-weight="500" font-size="12.5" fill="#fff">'+grade+'</text>' +
+      '<rect x="39" y="213" width="74" height="15" rx="3" fill="'+C.t+'"/>' +
+      '<text x="76" y="224" text-anchor="middle" font-family="'+F+'" font-weight="700" font-size="8" fill="'+C.bt+'">Premium Grade</text>' +
+      '<rect x="39" y="238" width="38" height="20" fill="#fff"/>' +
+      '<path d="M41 240v16M44 240v16M46 240v16M50 240v16M52 240v16M56 240v16M58 240v16M62 240v16M65 240v16M68 240v16M72 240v16M75 240v16" stroke="#111" stroke-width="1.1"/>' +
+      '<circle cx="186" cy="244" r="21" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="1.4"/>' +
+      '<text x="186" y="247" text-anchor="middle" font-family="'+F+'" font-weight="800" font-size="17" fill="#fff">20</text>' +
+      '<text x="186" y="257" text-anchor="middle" font-family="'+F+'" font-weight="600" font-size="7" fill="#fff">kg</text>' +
     '</svg>';
   }
   document.querySelectorAll('[data-bag]').forEach(function(el, i){
@@ -543,15 +554,15 @@
 
   /* ---- Product detail sheet ---- */
   var PRODUCTS = {
-    q100:{name:'Qurix Q100', bag:'Q100|T1 · Grade 1', pill:'T1 · Grade 1', cls:'g1', ac:'#f2b705',
+    q100:{name:'Qurix Q100', bag:'Q100|T1 – Grade 1', pill:'T1 – Grade 1', cls:'g1', ac:'#f2b705',
       lead:'Reliable everyday adhesive for standard tile fixing on interior floors and walls.',
       feat:['Dependable bond for everyday tiling','Smooth, easy-to-mix paste','Good workability for faster fixing','Economical choice for large areas'],
       use:['Interior floors','Interior walls','Ceramic tiles','Living rooms','Bedrooms']},
-    q200:{name:'Qurix Q200', bag:'Q200|T2 · Grade 2', pill:'T2 · Grade 2', cls:'g2', ac:'#e31b1b',
+    q200:{name:'Qurix Q200', bag:'Q200|T2 – Grade 2', pill:'T2 – Grade 2', cls:'g2', ac:'#e31b1b',
       lead:'Premium strength adhesive for demanding spaces and higher-traffic areas.',
       feat:['Stronger bond for heavier tiles','Improved water resistance','Longer working time for accurate placement','Reduced tile slippage on walls'],
       use:['Kitchens','Bathrooms','Vitrified tiles','Balconies','Commercial floors']},
-    q300:{name:'Qurix Q300', bag:'Q300|T3 · Grade 3', pill:'T3 · Grade 3', cls:'g3', ac:'#1a9e45',
+    q300:{name:'Qurix Q300', bag:'Q300|T3 – Grade 3', pill:'T3 – Grade 3', cls:'g3', ac:'#1a9e45',
       lead:'Advanced performance adhesive for superior, long-lasting results in the toughest conditions.',
       feat:['Highest bond strength in the range','Flexible, resists movement and weather','Suited to large-format and heavy tiles','Ideal for tile-on-tile fixing'],
       use:['Exteriors','Large-format tiles','Tile-on-tile','Wet areas','Facades']}
