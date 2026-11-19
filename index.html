@@ -127,9 +127,9 @@
   .more:hover em{transform:translateX(4px)}
 
   /* ---------- Why ---------- */
-  .why{background:linear-gradient(180deg,#131313,#0a0a0a);color:#fff;padding:clamp(24px,4.4vw,44px) 0;position:relative;overflow:hidden}
+  .why{background:linear-gradient(180deg,#131313,#0a0a0a);color:#fff;padding:clamp(24px,4.4vw,44px) 0;position:relative;overflow:visible}
   .why::after{content:"";position:absolute;inset:auto 0 0 0;height:60%;background:linear-gradient(0deg,rgba(255,255,255,.07),transparent);pointer-events:none}
-  .why-grid{display:grid;grid-template-columns:1.2fr 1.8fr;gap:clamp(8px,3vw,30px);align-items:center;position:relative;z-index:1}
+  .why-grid{display:grid;grid-template-columns:1.2fr 1.8fr;column-gap:clamp(8px,3vw,30px);row-gap:0;align-items:center;position:relative;z-index:1}
   .why .eyebrow{margin-bottom:clamp(8px,1.4vw,14px)}
   .why h2{font-size:clamp(20px,4vw,50px);font-weight:700;line-height:1.1}
   .why p{font-size:clamp(11px,1.7vw,20px);margin:6px 0 clamp(12px,2.2vw,22px);color:#eee}
@@ -139,6 +139,28 @@
   .why-feats svg{stroke:#fff}
   .why-feats .feature:hover svg{stroke:var(--red)}
   .why-feats span{color:#fff}
+  .discover-menu{grid-column:1/-1;width:100%;min-width:0;position:relative;z-index:3}
+  .discover-toggle{font-family:inherit}
+  .discover-toggle[aria-expanded="true"] i{transform:rotate(90deg)}
+  .discover-dropdown{max-height:0;margin-top:0;padding:0 clamp(12px,2.4vw,24px);background:#111;border:0 solid #303030;border-radius:12px;box-shadow:0 0 0 rgba(0,0,0,0);overflow:hidden;opacity:0;transform:translateY(-8px);visibility:hidden;pointer-events:none;transition:max-height .65s var(--ease),margin .65s var(--ease),padding .65s var(--ease),border-width .65s var(--ease),opacity .4s ease,transform .65s var(--ease),visibility 0s linear .65s}
+  .discover-dropdown.open{max-height:420px;margin-top:8px;padding:clamp(14px,2.4vw,24px);border-width:1px;box-shadow:0 12px 32px rgba(0,0,0,.4);opacity:1;transform:translateY(0);visibility:visible;pointer-events:auto;transition:max-height .65s var(--ease),margin .65s var(--ease),padding .65s var(--ease),border-width .65s var(--ease),opacity .4s ease,transform .65s var(--ease),visibility 0s}
+  .discover-article{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(16px,3vw,32px);align-items:start;opacity:0;transform:translateY(-5px);transition:opacity .3s ease,transform .4s var(--ease)}
+  .discover-dropdown.open .discover-article{opacity:1;transform:translateY(0);transition-delay:.35s}
+  .discover-kicker{display:block;margin-bottom:8px;color:#E11D48;font-size:10px;font-weight:600;letter-spacing:1.5px}
+  .discover-article h3{font-size:clamp(16px,2vw,22px);line-height:1.2}
+  .discover-article p{margin-top:8px;color:#c7c7c7;font-size:clamp(11px,1.2vw,13px);line-height:1.55}
+  .discover-points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;list-style:none}
+  .discover-points a{display:block;height:100%;padding:10px 12px;border-left:2px solid #E11D48;border-radius:8px;background:#181818;color:#fff;transition:background .2s,color .2s,opacity .25s ease,transform .35s var(--ease);opacity:0;transform:translateY(-5px)}
+  .discover-dropdown.open .discover-points a{opacity:1;transform:translateY(0)}
+  .discover-dropdown.open .discover-points li:nth-child(1) a{transition-delay:0s,0s,.48s,.48s}
+  .discover-dropdown.open .discover-points li:nth-child(2) a{transition-delay:0s,0s,.56s,.56s}
+  .discover-dropdown.open .discover-points li:nth-child(3) a{transition-delay:0s,0s,.64s,.64s}
+  .discover-dropdown.open .discover-points li:nth-child(4) a{transition-delay:0s,0s,.72s,.72s}
+  .discover-points a:hover,.discover-points a:focus-visible{background:#222;color:#E11D48;outline:none;transition-delay:0s}
+  .discover-points a:focus-visible{box-shadow:inset 0 0 0 1px #E11D48}
+  .discover-points strong{display:block;font-size:12px}
+  .discover-points span{display:block;margin-top:4px;color:#bdbdbd;font-size:10px;line-height:1.4}
+  @media (max-width:640px){.discover-article{grid-template-columns:1fr}.discover-points{grid-template-columns:1fr}}
 
   /* ---------- CTA ---------- */
   .cta{padding:clamp(12px,2.4vw,24px) 0}
@@ -272,20 +294,37 @@
       <span class="eyebrow"></span>
       <h2>Why Qurix?</h2>
       <p>More than just a tile adhesive.</p>
-      <a href="#contact" class="btn btn-ghost">Discover More <i>&rarr;</i></a>
+      <button type="button" class="btn btn-ghost discover-toggle" id="discoverToggle" aria-expanded="false" aria-controls="discoverDropdown">Discover More <i>&rarr;</i></button>
     </div>
     <div class="features why-feats">
-      <div class="feature reveal" style="--d:.05s">
+      <div class="feature reveal" id="reliable-performance" style="--d:.05s">
         <svg viewBox="0 0 48 48"><path d="M14 8h20l8 10-18 22L6 18z"/><path d="M6 18h36M18 8l-4 10 10 22 10-22-4-10"/></svg>
         <span>Reliable<br>Performance</span>
       </div>
-      <div class="feature reveal" style="--d:.15s">
+      <div class="feature reveal" id="versatile-applications" style="--d:.15s">
         <svg viewBox="0 0 48 48"><path d="M24 5 8 11v12c0 10 7 17 16 20 9-3 16-10 16-20V11z"/><path d="m16 24 6 6 11-12"/></svg>
         <span>Versatile<br>Applications</span>
       </div>
-      <div class="feature reveal" style="--d:.25s">
+      <div class="feature reveal" id="application-made-simple" style="--d:.25s">
         <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="6"/><path d="M24 4v6M24 38v6M4 24h6M38 24h6M9.9 9.9l4.2 4.2M33.9 33.9l4.2 4.2M9.9 38.1l4.2-4.2M33.9 14.1l4.2-4.2"/><circle cx="24" cy="24" r="13"/></svg>
         <span>Application<br>Made Simple</span>
+      </div>
+    </div>
+    <div class="discover-menu">
+      <div class="discover-dropdown" id="discoverDropdown" aria-label="Discover more about Qurix" aria-hidden="true" inert>
+        <article class="discover-article">
+          <div>
+            <span class="discover-kicker">WHY QURIX</span>
+            <h3>A stronger bond for every space.</h3>
+            <p>Qurix pairs dependable adhesion with practical application for lasting tile installations.</p>
+          </div>
+          <ul class="discover-points">
+            <li><a href="#reliable-performance"><strong>Reliable Performance</strong><span>Dependable bonding for longer-lasting installations.</span></a></li>
+            <li><a href="#versatile-applications"><strong>Versatile Applications</strong><span>Interior, exterior, and tile-on-tile applications.</span></a></li>
+            <li><a href="#application-made-simple"><strong>Application Made Simple</strong><span>Straightforward application for a smooth installation.</span></a></li>
+            <li><a href="#contact"><strong>Technical Data Sheets</strong><span>Contact our team for product specifications and guidance.</span></a></li>
+          </ul>
+        </article>
       </div>
     </div>
   </div>
@@ -312,7 +351,7 @@
       <span class="tag">CURE. GRIP. FIX.</span>
     </a>
     <span class="sep"></span>
-    <a class="site" href="https://www.qurix.kipipl.com" target="_blank" rel="noopener">www.qurix.kipipl.com</a>
+    <a class="site" href="https://www.qurix.kipipl.com" target="_blank" rel="noopener">A Kannan Infra Project</a>
     <span class="sep"></span>
     <a class="phone" href="tel:+919344630590">
       <svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
@@ -375,6 +414,38 @@
   });
   menu.addEventListener('click', function(e){ if(e.target.tagName === 'A') closeMenu(); });
   document.addEventListener('click', closeMenu);
+
+  /* ---- Discover menu ---- */
+  var discoverBtn = document.getElementById('discoverToggle');
+  var discoverMenu = document.getElementById('discoverDropdown');
+  function closeDiscoverMenu(returnFocus){
+    discoverMenu.classList.remove('open');
+    discoverMenu.setAttribute('aria-hidden', 'true');
+    discoverMenu.setAttribute('inert', '');
+    discoverBtn.setAttribute('aria-expanded', 'false');
+    if(returnFocus) discoverBtn.focus();
+  }
+  discoverBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = discoverBtn.getAttribute('aria-expanded') !== 'true';
+    if(open){
+      discoverBtn.setAttribute('aria-expanded', 'true');
+      discoverMenu.setAttribute('aria-hidden', 'false');
+      discoverMenu.removeAttribute('inert');
+      discoverMenu.classList.add('open');
+    } else {
+      closeDiscoverMenu(false);
+    }
+  });
+  discoverMenu.addEventListener('click', function(e){
+    if(e.target.closest('a')) closeDiscoverMenu(false);
+  });
+  document.addEventListener('click', function(e){
+    if(discoverMenu.classList.contains('open') && !e.target.closest('.discover-menu')) closeDiscoverMenu(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && discoverMenu.classList.contains('open')) closeDiscoverMenu(true);
+  });
 
   /* ---- Scroll reveal ---- */
   var items = document.querySelectorAll('.reveal');
