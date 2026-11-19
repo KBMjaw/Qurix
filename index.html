@@ -218,7 +218,10 @@
   .cards{align-items:stretch}
   .card{display:flex;flex-direction:column;align-items:center;background:#f4f4f5;border:0;border-radius:clamp(14px,2.4vw,26px);padding:clamp(14px,2.4vw,26px) clamp(8px,1.6vw,18px) clamp(16px,2.4vw,26px);box-shadow:none}
   .card:hover{box-shadow:0 22px 46px rgba(20,24,35,.12)}
-  .shot{width:100%;display:grid;place-items:center;margin-bottom:clamp(8px,1.4vw,16px)}
+  .shot{position:relative;width:100%;aspect-ratio:4/5;display:grid;place-items:center;margin-bottom:clamp(8px,1.4vw,16px)}
+  .shot .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;transition:transform .5s var(--ease)}
+  .shot.has-photo .bag{display:none}
+  .card:hover .shot .photo{transform:translateY(-6px) scale(1.03)}
   .shot .bag{width:86%;max-width:300px;margin:0;filter:drop-shadow(0 10px 10px rgba(0,0,0,.14));transition:transform .5s var(--ease)}
   .card:hover .shot .bag{transform:translateY(-6px) scale(1.03)}
   .card p{flex:1}
@@ -304,21 +307,21 @@
 
     <div class="cards">
       <article class="card reveal" style="--d:.05s">
-        <div class="shot"><div class="bag" data-bag="Q100|T1 – Grade 1"></div></div>
+        <div class="shot"><div class="bag" data-bag="Q100|T1 – Grade 1"></div><img class="photo" src="assets/qurix-q100.webp" alt="QURIX Q100 T1 – Grade 1 – 20 kg tile adhesive bag" width="640" height="800" loading="lazy" decoding="async" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <h3>Qurix Q100</h3>
         <span class="pill g1">T1 – Grade 1</span>
         <p>Reliable performance for everyday tiling.</p>
         <button type="button" class="more" data-more="q100">Know More <em>&rarr;</em></button>
       </article>
       <article class="card reveal" style="--d:.18s">
-        <div class="shot"><div class="bag" data-bag="Q200|T2 – Grade 2"></div></div>
+        <div class="shot"><div class="bag" data-bag="Q200|T2 – Grade 2"></div><img class="photo" src="assets/qurix-q200.webp" alt="QURIX Q200 T2 – Grade 2 – 20 kg tile adhesive bag" width="640" height="800" loading="lazy" decoding="async" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <h3>Qurix Q200</h3>
         <span class="pill g2">T2 – Grade 2</span>
         <p>Premium strength for demanding spaces.</p>
         <button type="button" class="more" data-more="q200">Know More <em>&rarr;</em></button>
       </article>
       <article class="card reveal" style="--d:.3s">
-        <div class="shot"><div class="bag" data-bag="Q300|T3 – Grade 3"></div></div>
+        <div class="shot"><div class="bag" data-bag="Q300|T3 – Grade 3"></div><img class="photo" src="assets/qurix-q300.webp" alt="QURIX Q300 T3 – Grade 3 – 20 kg tile adhesive bag" width="640" height="800" loading="lazy" decoding="async" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
         <h3>Qurix Q300</h3>
         <span class="pill g3">T3 – Grade 3</span>
         <p>Advanced performance for superior results.</p>
