@@ -182,6 +182,36 @@
   .foot .phone svg{width:clamp(14px,2.2vw,26px);height:clamp(14px,2.2vw,26px);fill:#fff}
 
   @media (min-width:960px){.stage{margin-left:0;padding-bottom:42px}}
+
+  /* ---------- Product detail sheet ---------- */
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes sheet{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+  @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+  .more{background:none;border-top:0;border-left:0;border-right:0;cursor:pointer;font-family:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+  .modal{position:fixed;inset:0;z-index:100;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+  .modal.open{display:flex;animation:fade .25s ease both}
+  .sheet{--ac:var(--red);position:relative;width:100%;max-width:560px;max-height:92vh;overflow:auto;background:#fff;border-radius:22px 22px 0 0;padding:0 0 calc(22px + env(safe-area-inset-bottom));animation:sheet .45s var(--ease) both;overscroll-behavior:contain}
+  .sheet-head{position:relative;background:linear-gradient(135deg,#0b0b0b,#1c1c1c);color:#fff;padding:22px 20px 18px;display:flex;align-items:center;gap:16px;border-bottom:4px solid var(--ac)}
+  .sheet-head .bag{width:86px;flex:none;filter:drop-shadow(0 10px 10px rgba(0,0,0,.5));animation:float 4.5s ease-in-out infinite}
+  .sheet-head h3{font-size:22px;font-weight:700;line-height:1.2}
+  .sheet-head .pill{margin:8px 0 0}
+  .sheet-x{position:absolute;right:10px;top:10px;width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:22px;line-height:1;cursor:pointer;transition:background .2s,transform .25s var(--ease)}
+  .sheet-x:hover{background:var(--red);transform:rotate(90deg)}
+  .sheet-body{padding:18px 20px 0}
+  .sheet-body .lead{font-size:15px;color:#333;margin-bottom:16px}
+  .sheet-body h4{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--grey);font-weight:600;margin:14px 0 8px}
+  .sheet-body ul{list-style:none;display:grid;gap:8px}
+  .sheet-body li{position:relative;padding-left:24px;font-size:14.5px;color:#222;opacity:0;animation:rise .5s var(--ease) both}
+  .sheet-body li::before{content:"";position:absolute;left:2px;top:.45em;width:10px;height:10px;border-radius:50%;background:var(--ac)}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tags span{font-size:13px;font-weight:500;padding:6px 14px;border-radius:999px;background:var(--light);border:1px solid #e6e6e8;opacity:0;animation:pop .45s var(--ease) both}
+  .sheet-cta{display:flex;gap:10px;padding:20px 20px 0}
+  .sheet-cta .btn{flex:1;padding:14px 18px;font-size:14px}
+  .sheet-cta .btn-red{background:var(--ac);box-shadow:none;color:#fff}
+  .sheet-cta .btn-close{background:var(--light);color:var(--ink);border-color:#e0e0e2}
+  .sheet-cta .btn-close:hover{background:#e9e9eb}
+  body.lock{overflow:hidden}
+  @media (min-width:700px){.modal{align-items:center;padding:24px}.sheet{border-radius:22px;padding-bottom:24px}.sheet-head{padding:26px 28px 22px}.sheet-body{padding:22px 28px 0}.sheet-cta{padding:22px 28px 0}.sheet-head .bag{width:100px}}
   @media (max-width:340px){.foot a.site{font-size:9px}.btn{padding:11px 16px}}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1}}
 </style>
@@ -268,21 +298,21 @@
         <h3>Qurix Q100</h3>
         <span class="pill g1">T1 · Grade 1</span>
         <p>Reliable performance for everyday tiling.</p>
-        <a href="#contact" class="more">Know More <em>&rarr;</em></a>
+        <button type="button" class="more" data-more="q100">Know More <em>&rarr;</em></button>
       </article>
       <article class="card reveal" style="--d:.18s">
         <div class="bag" data-bag="Q200|T2 · Grade 2"></div>
         <h3>Qurix Q200</h3>
         <span class="pill g2">T2 · Grade 2</span>
         <p>Premium strength for demanding spaces.</p>
-        <a href="#contact" class="more">Know More <em>&rarr;</em></a>
+        <button type="button" class="more" data-more="q200">Know More <em>&rarr;</em></button>
       </article>
       <article class="card reveal" style="--d:.3s">
         <div class="bag" data-bag="Q300|T3 · Grade 3"></div>
         <h3>Qurix Q300</h3>
         <span class="pill g3">T3 · Grade 3</span>
         <p>Advanced performance for superior results.</p>
-        <a href="#contact" class="more">Know More <em>&rarr;</em></a>
+        <button type="button" class="more" data-more="q300">Know More <em>&rarr;</em></button>
       </article>
     </div>
   </div>
@@ -360,6 +390,28 @@
     </a>
   </div>
 </footer>
+
+<!-- ================= PRODUCT DETAIL ================= -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="mTitle" tabindex="-1">
+    <div class="sheet-head">
+      <div class="bag" id="mBag"></div>
+      <div><h3 id="mTitle"></h3><span class="pill" id="mPill"></span></div>
+      <button type="button" class="sheet-x" id="mX" aria-label="Close">&times;</button>
+    </div>
+    <div class="sheet-body">
+      <p class="lead" id="mLead"></p>
+      <h4>Key Features</h4>
+      <ul id="mFeat"></ul>
+      <h4>Ideal For</h4>
+      <div class="tags" id="mUse"></div>
+    </div>
+    <div class="sheet-cta">
+      <a href="tel:+919344630590" class="btn btn-red">Enquire Now <i>&rarr;</i></a>
+      <button type="button" class="btn btn-close" id="mClose">Close</button>
+    </div>
+  </div>
+</div>
 
 <script>
   /* ---- Product bag illustration (inline SVG) ---- */
@@ -460,6 +512,48 @@
     }, {threshold:.12, rootMargin:'0px 0px -5% 0px'});
     items.forEach(function(el){ io.observe(el); });
   } else { items.forEach(function(el){ el.classList.add('in'); }); }
+
+  /* ---- Product detail sheet ---- */
+  var PRODUCTS = {
+    q100:{name:'Qurix Q100', bag:'Q100|T1 · Grade 1', pill:'T1 · Grade 1', cls:'g1', ac:'#f2b705',
+      lead:'Reliable everyday adhesive for standard tile fixing on interior floors and walls.',
+      feat:['Dependable bond for everyday tiling','Smooth, easy-to-mix paste','Good workability for faster fixing','Economical choice for large areas'],
+      use:['Interior floors','Interior walls','Ceramic tiles','Living rooms','Bedrooms']},
+    q200:{name:'Qurix Q200', bag:'Q200|T2 · Grade 2', pill:'T2 · Grade 2', cls:'g2', ac:'#e31b1b',
+      lead:'Premium strength adhesive for demanding spaces and higher-traffic areas.',
+      feat:['Stronger bond for heavier tiles','Improved water resistance','Longer working time for accurate placement','Reduced tile slippage on walls'],
+      use:['Kitchens','Bathrooms','Vitrified tiles','Balconies','Commercial floors']},
+    q300:{name:'Qurix Q300', bag:'Q300|T3 · Grade 3', pill:'T3 · Grade 3', cls:'g3', ac:'#1a9e45',
+      lead:'Advanced performance adhesive for superior, long-lasting results in the toughest conditions.',
+      feat:['Highest bond strength in the range','Flexible, resists movement and weather','Suited to large-format and heavy tiles','Ideal for tile-on-tile fixing'],
+      use:['Exteriors','Large-format tiles','Tile-on-tile','Wet areas','Facades']}
+  };
+  var modal = document.getElementById('modal'), sheet = document.getElementById('sheet'), lastFocus = null;
+  function openMore(key, trigger){
+    var d = PRODUCTS[key]; if(!d) return;
+    lastFocus = trigger;
+    sheet.style.setProperty('--ac', d.ac);
+    document.getElementById('mTitle').textContent = d.name;
+    var pill = document.getElementById('mPill'); pill.textContent = d.pill; pill.className = 'pill ' + d.cls;
+    document.getElementById('mLead').textContent = d.lead;
+    var bag = document.getElementById('mBag'), p = d.bag.split('|');
+    bag.innerHTML = bagSVG(p[0], p[1]).replace(/(id="|url\(#)([rkc])Q(\d+)/g, '$1$2Q$3_m');
+    document.getElementById('mFeat').innerHTML = d.feat.map(function(t,i){ return '<li style="animation-delay:'+(.15+i*.08)+'s">'+t+'</li>'; }).join('');
+    document.getElementById('mUse').innerHTML = d.use.map(function(t,i){ return '<span style="animation-delay:'+(.3+i*.07)+'s">'+t+'</span>'; }).join('');
+    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+    document.body.classList.add('lock'); sheet.scrollTop = 0; sheet.focus();
+  }
+  function closeMore(){
+    modal.classList.remove('open'); modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('lock'); if(lastFocus) lastFocus.focus();
+  }
+  document.querySelectorAll('[data-more]').forEach(function(b){
+    b.addEventListener('click', function(e){ e.stopPropagation(); openMore(b.getAttribute('data-more'), b); });
+  });
+  document.getElementById('mX').addEventListener('click', closeMore);
+  document.getElementById('mClose').addEventListener('click', closeMore);
+  modal.addEventListener('click', function(e){ if(e.target === modal) closeMore(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.classList.contains('open')) closeMore(); });
 </script>
 </body>
 </html>
